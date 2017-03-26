@@ -39,7 +39,7 @@
                 {{bucket['heading']}}
                 <br>
                 % for word in bucket['words']:
-                    <a href="http://www.merriam-webster.com/dictionary/{{word}}">{{word}}</a>
+                    <a href="http://www.thefreedictionary.com/{{word}}">{{word}}</a>
                 % end
                 <br>
                 <br>
