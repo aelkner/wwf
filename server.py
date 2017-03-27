@@ -45,7 +45,7 @@ def process_request():
     if not filters:
         filtered_words = []
     else:
-        filtered_words = utils.filter_words(words, opts, filters)
+        filtered_words = utils.filter_words(words, opts, filters)[:10000]
     buckets = utils.build_buckets(filtered_words)
 
     if starts_with:
