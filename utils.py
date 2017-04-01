@@ -27,8 +27,14 @@ def load_words():
     words = pickle.load(open(filename, 'rb'))
     return [
         word for word in words if word not in [
+            'cert',
+            'exed',
+            'hims',
+            'nala', 'nalas',
+            'opa',
             'rez',
             'uni',
+            'vin', 'vins',
         ]
     ] + [
         'di',
