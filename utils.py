@@ -63,17 +63,18 @@ def save_wwf_words():
 def filter_words(words, opts, filters):
     for opt, filter in zip(opts, filters):
         filter_list = filter.split('/')
-        apply_filter = {
-            's': lambda word: [
+        if opt == 's':
+            apply_filter = lambda word: [
                 0 for filter in filter_list if word.startswith(filter)
-            ],
-            'e': lambda word: [
+            ]
+        elif opt == 'e':
+            apply_filter = lambda word: [
                 0 for filter in filter_list if word.endswith(filter)
-            ],
-            'c': lambda word: [
+            ]
+        else:
+            apply_filter = lambda word: [
                 0 for filter in filter_list if filter in word
-            ],
-        }[opt]
+            ]
         words = [
             word for word in words if apply_filter(word)
         ]

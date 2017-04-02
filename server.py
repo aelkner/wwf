@@ -50,7 +50,7 @@ def process_request():
         index, total = 0, 0
         while True:
             total += len(buckets[index])
-            if total > 10000:
+            if total > 15000:
                 break
             index += 1
             if index >= len(buckets):
