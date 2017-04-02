@@ -42,9 +42,9 @@
 <body>
     <h2>Words With Friends Filter Tool</h2>
     <form action="/" method="post">
-        Starts with: <input id="starts_with" class="field" name="starts_with" type="text" value="{{starts_with}}"/>
-        Ends with: <input id="ends_with" class="field" name="ends_with" type="text" value="{{ends_with}}" />
-        Contains: <input id="contains" class="field" name="contains" type="text" value="{{contains}}" />
+        Starts with: <input id="starts_with" class="field" name="starts_with" type="text" value="{{form['starts_with']}}"/>
+        Ends with: <input id="ends_with" class="field" name="ends_with" type="text" value="{{form['ends_with']}}" />
+        Contains: <input id="contains" class="field" name="contains" type="text" value="{{form['contains']}}" />
         <input value="Filter" type="submit" />
     </form>
     <br>

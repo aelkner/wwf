@@ -26,24 +26,22 @@ def post():
 
 
 def process_request():
-    starts_with, ends_with, contains = '', '', ''
-    if request.forms:
-        starts_with = request.forms.get('starts_with', '')
-        ends_with = request.forms.get('ends_with', '')
-        contains = request.forms.get('contains', '')
+    form, focus, opts, filters = {}, '', '', []
+    for opt, field in [
+        ('s', 'starts_with'),
+        ('e', 'ends_with'),
+        ('c', 'contains'),
+    ]:
+        form[field] = '' if not request.forms else request.forms.get(field, '')
+        if form[field]:
+            opts += opt
+            filters.append(form[field])
+            if not focus:
+                focus = field
 
-    chosen_opts = [
-        ('s', starts_with),
-        ('e', ends_with),
-        ('c', contains),
-    ]
-    opts, filters = '', []
-    for chosen_opt, filter in chosen_opts:
-        if filter:
-            opts += chosen_opt
-            filters.append(filter)
     if not filters:
         filtered_words = []
+        focus = 'starts_with'
     else:
         filtered_words = utils.filter_words(words, opts, filters)
     buckets = utils.build_buckets(filtered_words)
@@ -59,28 +57,17 @@ def process_request():
                 break
         buckets = buckets[:index]
 
-    if starts_with:
-        focus = 'starts_with'
-    elif ends_with:
-        focus = 'ends_with'
-    elif contains:
-        focus = 'contains'
-    else:
-        focus = 'starts_with'
-
     template_buckets = [
         {
             'heading': '{heading}s'.format(heading=index+2),
-            'words': bucket
+            'words': bucket,
         }
         for index, bucket in enumerate(buckets)
     ]
 
     return template(
         os.path.dirname(__file__) + '/index.tpl',
-        starts_with=starts_with,
-        ends_with=ends_with,
-        contains=contains,
+        form=form,
         focus=focus,
         buckets=template_buckets
     )
