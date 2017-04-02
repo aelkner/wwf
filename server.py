@@ -49,10 +49,13 @@ def process_request():
     buckets = utils.build_buckets(filtered_words)
 
     if buckets:
-        total = 0
-        for index in range(len(buckets)):
+        index, total = 0, 0
+        while True:
             total += len(buckets[index])
             if total > 10000:
+                break
+            index += 1
+            if index >= len(buckets):
                 break
         buckets = buckets[:index]
 

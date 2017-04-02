@@ -88,7 +88,9 @@ def build_buckets(words):
             for _ in range(word_index - len(buckets) + 1):
                 buckets.append([])
         buckets[word_index].append(word)
-    return buckets
+    return [
+        list(sorted(bucket)) for bucket in buckets
+    ]
 
 
 def print_buckets(buckets):
