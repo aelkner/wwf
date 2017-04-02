@@ -78,7 +78,6 @@ def process_request():
 
     return template(
         os.path.dirname(__file__) + '/index.tpl',
-        title='Words With Friends Filter Tool',
         starts_with=starts_with,
         ends_with=ends_with,
         contains=contains,

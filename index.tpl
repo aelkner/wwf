@@ -40,7 +40,7 @@
     </script>
 </head>
 <body>
-    <h2>{{title}}</h2>
+    <h2>Words With Friends Filter Tool</h2>
     <form action="/" method="post">
         Starts with: <input id="starts_with" class="field" name="starts_with" type="text" value="{{starts_with}}"/>
         Ends with: <input id="ends_with" class="field" name="ends_with" type="text" value="{{ends_with}}" />
