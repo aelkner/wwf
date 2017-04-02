@@ -30,6 +30,7 @@ def load_words():
             'cert',
             'exed',
             'hims',
+            'loto'
             'nala', 'nalas',
             'opa',
             'rez',

@@ -45,8 +45,15 @@ def process_request():
     if not filters:
         filtered_words = []
     else:
-        filtered_words = utils.filter_words(words, opts, filters)[:10000]
+        filtered_words = utils.filter_words(words, opts, filters)
     buckets = utils.build_buckets(filtered_words)
+
+    total = 0
+    for index in range(2, 16):
+        total += len(buckets[index - 2])
+        if total > 10000:
+            break
+    buckets = buckets[:index - 2]
 
     if starts_with:
         focus = 'starts_with'
