@@ -16,8 +16,12 @@
     <script type='text/javascript' src='/static/jquery.js'></script>
     <script type='text/javascript'>
         $(document).ready(function(){
-            $(".field").focus(function(event) {
-                $(this).select();
+            $(".field, .button, .word").focus(function(event) {
+                if ($(this).hasClass("field")){
+                    $(this).select();
+                } else {
+                    $("#starts_with").focus();
+                }
             });
             $(".field").keydown(function(event) {
                 var key = event.keyCode;
@@ -45,7 +49,7 @@
         Starts with: <input id="starts_with" class="field" name="starts_with" type="text" value="{{form['starts_with']}}"/>
         Ends with: <input id="ends_with" class="field" name="ends_with" type="text" value="{{form['ends_with']}}" />
         Contains: <input id="contains" class="field" name="contains" type="text" value="{{form['contains']}}" />
-        <input value="Filter" type="submit" />
+        <input class="button" value="Filter" type="submit" />
     </form>
     <br>
     <div>
@@ -55,7 +59,7 @@
                 {{bucket['heading']}}
                 <br>
                 % for word in bucket['words']:
-                    <a href="http://www.thefreedictionary.com/{{word}}">{{word}}</a>
+                    <a class="word" href="http://www.thefreedictionary.com/{{word}}">{{word}}</a>
                 % end
                 <br>
                 <br>

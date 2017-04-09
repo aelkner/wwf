@@ -28,14 +28,16 @@ def load_words():
     return [
         word for word in words if word not in [
             'cert',
-            'exed',
+            'est', 'exed',
+            'fes',
             'hims',
             'loto'
             'nala', 'nalas',
-            'opa',
+            'opa', 'org',
             'rez',
+            'tec', 'tiz',
             'uni',
-            'vin', 'vins',
+            'vetter', 'vin', 'vins',
         ]
     ] + [
         'di',
