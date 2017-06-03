@@ -1,6 +1,7 @@
 import os
 import sys
 import pickle
+import re
 
 
 def run(cmd):
@@ -75,7 +76,13 @@ def save_wwf_words():
 
 def filter_words(words, opts, filters):
     for opt, filter_spec in zip(opts, filters):
-        filter_parts = filter_spec.split('/')
+        if filter_spec.startswith('`'):
+            if opt != 'c':
+                words = []
+                break
+            filter_parts = filter_spec.split('`')[1:]
+        else:
+            filter_parts = filter_spec.split('/')
         if opt == 's':
             apply_filter = lambda word: [
                 0 for part in filter_parts if word.startswith(part)
@@ -85,9 +92,14 @@ def filter_words(words, opts, filters):
                 0 for part in filter_parts if word.endswith(part)
             ]
         else:
-            apply_filter = lambda word: [
-                0 for part in filter_parts if part in word
-            ]
+            if filter_spec.startswith('`'):
+                apply_filter = lambda word: [
+                    0 for part in filter_parts if re.match(part, word)
+                ]
+            else:
+                apply_filter = lambda word: [
+                    0 for part in filter_parts if part in word
+                ]
         words = filter(apply_filter, words)
     return words
 
