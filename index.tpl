@@ -59,7 +59,7 @@
                 {{bucket['heading']}}
                 <br>
                 % for word in bucket['words']:
-                    <a class="word" href="http://www.thefreedictionary.com/{{word}}">{{word}}</a>
+                    <a class="word" href="http://www.thefreedictionary.com/{{word}}" target=”_blank”>{{word}}</a>
                 % end
                 <br>
                 <br>

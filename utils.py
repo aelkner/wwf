@@ -27,20 +27,31 @@ def load_words():
     words = pickle.load(open(filename, 'rb'))
     return [
         word for word in words if word not in [
-            'cert',
-            'est', 'exed',
+            'areg', 'atigi', 'automat,'
+            'bish',
+            'cert', 'chuse', 'crit',
+            'desi', 'doh',
+            'eco', 'ecos', 'eds', 'emo', 'est', 'exed',
+            'factum', 'fah',
+            'gos',
             'fes',
             'hims',
-            'loto'
-            'nala', 'nalas',
-            'opa', 'org',
-            'rez',
-            'tec', 'tiz',
+            'kis',
+            'lah', 'loto' 'luxer',
+            'moi', 'mux',
+            'nala', 'nalas', 'nav', 'navs', 'nazi', 'nazis', 'neg',
+            'oik', 'oiks', 'oof', 'oma', 'opa', 'org', 'owt'
+            'po', 'pos',
+            'reno', 'rez',
+            'san', 'sev', 'sevs', 'sig', 'soba', 'stoved',
+            'tec', 'tiz', 'tolt', 'tum', 'tums', 'turr', 'turrs',
             'uni',
-            'vetter', 'vin', 'vins',
+            'vega', 'vetter', 'vin', 'vins',
+            'weta',
+            'zeda',
         ]
     ] + [
-        'di',
+        'di', 'dux',
     ]
 
 
@@ -63,23 +74,21 @@ def save_wwf_words():
 
 
 def filter_words(words, opts, filters):
-    for opt, filter in zip(opts, filters):
-        filter_list = filter.split('/')
+    for opt, filter_spec in zip(opts, filters):
+        filter_parts = filter_spec.split('/')
         if opt == 's':
             apply_filter = lambda word: [
-                0 for filter in filter_list if word.startswith(filter)
+                0 for part in filter_parts if word.startswith(part)
             ]
         elif opt == 'e':
             apply_filter = lambda word: [
-                0 for filter in filter_list if word.endswith(filter)
+                0 for part in filter_parts if word.endswith(part)
             ]
         else:
             apply_filter = lambda word: [
-                0 for filter in filter_list if filter in word
+                0 for part in filter_parts if part in word
             ]
-        words = [
-            word for word in words if apply_filter(word)
-        ]
+        words = filter(apply_filter, words)
     return words
 
 
