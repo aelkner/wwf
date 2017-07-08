@@ -28,21 +28,22 @@ def load_words():
     words = pickle.load(open(filename, 'rb'))
     return [
         word for word in words if word not in [
-            'areg', 'atigi', 'automat,'
+            'aji', 'apo', 'apos', 'areg', 'atigi', 'automat,'
             'bish',
-            'cert', 'chuse', 'crit',
-            'desi', 'doh',
+            'cert', 'chuse', 'crit', 'cru', 'cinq',
+            'desi', 'dobe', 'doh',
             'eco', 'ecos', 'eds', 'emo', 'est', 'exed',
             'factum', 'fah',
             'gos',
             'fes',
             'hims',
+            'juvies',
             'kis',
             'lah', 'loto' 'luxer',
             'moi', 'mux',
-            'nala', 'nalas', 'nav', 'navs', 'nazi', 'nazis', 'neg',
+            'naes', 'nala', 'nalas', 'nav', 'navs', 'nazi', 'nazis', 'neg', 'nug',
             'oik', 'oiks', 'oof', 'oma', 'opa', 'org', 'owt'
-            'po', 'pos',
+            'po', 'pos', 'posier',
             'reno', 'rez',
             'san', 'sev', 'sevs', 'sig', 'soba', 'stoved',
             'tec', 'tiz', 'tolt', 'tum', 'tums', 'turr', 'turrs',
@@ -53,6 +54,7 @@ def load_words():
         ]
     ] + [
         'di', 'dux',
+        'von',
     ]
 
 
@@ -94,13 +96,13 @@ def filter_words(words, opts, filters):
         else:
             if filter_spec.startswith('`'):
                 apply_filter = lambda word: [
-                    0 for part in filter_parts if re.match(part, word)
+                    0 for part in filter_parts if re.match(part+'$', word)
                 ]
             else:
                 apply_filter = lambda word: [
                     0 for part in filter_parts if part in word
                 ]
-        words = filter(apply_filter, words)
+        words = list(filter(apply_filter, words))
     return words
 
 
