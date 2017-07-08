@@ -44,9 +44,12 @@
                 }
             });
             $("body").keydown(function(event) {
-                if (bodyOnly) {
-                    $("#starts_with").focus();
-                    event.preventDefault();
+                var key = event.keyCode;
+                if (key == 38 || key == 40) {
+                    if (bodyOnly) {
+                        $("#starts_with").focus();
+                        event.preventDefault();
+                    }
                 }
                 bodyOnly = true;
             });
