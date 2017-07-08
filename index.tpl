@@ -16,6 +16,7 @@
     <script type='text/javascript' src='/static/jquery.js'></script>
     <script type='text/javascript'>
         $(document).ready(function(){
+            var bodyOnly = true;
             $(".field, .button, .word").focus(function(event) {
                 if ($(this).hasClass("field")){
                     $(this).select();
@@ -39,7 +40,15 @@
                     var newField = "#" + fields[index];
                     $(newField).focus();
                     event.preventDefault();
+                    bodyOnly = false;
                 }
+            });
+            $("body").keydown(function(event) {
+                if (bodyOnly) {
+                    $("#starts_with").focus();
+                    event.preventDefault();
+                }
+                bodyOnly = true;
             });
             $("#{{focus}}").focus();
         });
