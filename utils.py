@@ -89,10 +89,10 @@ def filter_words(words, opts, filters, form):
             ]
         else:
             macro = form.get('macro', '')
-            if macro:
-                filter_parts = [macro.replace('$', '['+ filter_spec + ']')]
-            elif filter_spec.startswith('`'):
+            if filter_spec.startswith('`'):
                 filter_parts = filter_spec.split('`')[1:]
+            elif macro:
+                filter_parts = [macro.replace('$', '['+ filter_spec + ']')]
             if filter_spec.startswith('`') or macro:
                 apply_filter = lambda word: [
                     0 for part in filter_parts if re.match(part + '$', word)
