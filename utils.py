@@ -76,15 +76,9 @@ def save_wwf_words():
     save_words(words)
 
 
-def filter_words(words, opts, filters):
+def filter_words(words, opts, filters, form):
     for opt, filter_spec in zip(opts, filters):
-        if filter_spec.startswith('`'):
-            if opt != 'c':
-                words = []
-                break
-            filter_parts = filter_spec.split('`')[1:]
-        else:
-            filter_parts = filter_spec.split('/')
+        filter_parts = filter_spec.split('/')
         if opt == 's':
             apply_filter = lambda word: [
                 0 for part in filter_parts if word.startswith(part)
@@ -94,9 +88,14 @@ def filter_words(words, opts, filters):
                 0 for part in filter_parts if word.endswith(part)
             ]
         else:
-            if filter_spec.startswith('`'):
+            macro = form.get('macro', '')
+            if macro:
+                filter_parts = [macro.replace('$', '['+ filter_spec + ']')]
+            elif filter_spec.startswith('`'):
+                filter_parts = filter_spec.split('`')[1:]
+            if filter_spec.startswith('`') or macro:
                 apply_filter = lambda word: [
-                    0 for part in filter_parts if re.match(part+'$', word)
+                    0 for part in filter_parts if re.match(part + '$', word)
                 ]
             else:
                 apply_filter = lambda word: [

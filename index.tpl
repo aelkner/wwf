@@ -26,14 +26,16 @@
             $(".field").keydown(function(event) {
                 var key = event.keyCode;
                 if (key == 38 || key == 40) {
-                    var fields = Array('starts_with', 'ends_with', 'contains');
+                    var fields = Array(
+                        'starts_with', 'ends_with', 'contains', 'macro',
+                    );
                     var index = fields.indexOf(this.id);
                     if (key == 38) {
                         index = index + 1;
                     } else {
                         index = index - 1;
                     }
-                    index = (index + 3) % 3;
+                    index = (index + fields.length) % fields.length;
                     var newField = "#" + fields[index];
                     $(newField).focus();
                     event.preventDefault();
@@ -49,6 +51,7 @@
         Starts with: <input id="starts_with" class="field" name="starts_with" type="text" value="{{form['starts_with']}}"/>
         Ends with: <input id="ends_with" class="field" name="ends_with" type="text" value="{{form['ends_with']}}" />
         Contains: <input id="contains" class="field" name="contains" type="text" value="{{form['contains']}}" />
+        Macro: <input id="macro" class="field" name="macro" type="text" value="{{form['macro']}}" />
         <input class="button" value="Filter" type="submit" />
     </form>
     <br>

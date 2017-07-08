@@ -38,12 +38,13 @@ def process_request():
             filters.append(form[field])
             if not focus:
                 focus = field
+    form['macro'] = '' if not request.forms else request.forms.get('macro', '')
 
     if not filters:
         filtered_words = []
         focus = 'starts_with'
     else:
-        filtered_words = utils.filter_words(words, opts, filters)
+        filtered_words = utils.filter_words(words, opts, filters, form)
     buckets = utils.build_buckets(filtered_words)
 
     if buckets:
