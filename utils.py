@@ -28,33 +28,35 @@ def load_words():
     words = pickle.load(open(filename, 'rb'))
     return [
         word for word in words if word not in [
-            'aji', 'apo', 'apos', 'areg', 'atigi', 'automat,'
-            'bish',
-            'cert', 'chuse', 'crit', 'cru', 'cinq',
-            'desi', 'dobe', 'doh',
-            'eco', 'ecos', 'eds', 'emo', 'est', 'exed',
-            'factum', 'fah',
-            'gos',
-            'fes',
-            'hims',
-            'juvies',
-            'kis',
-            'lah', 'loto' 'luxer',
-            'moi', 'mux',
-            'naes', 'nala', 'nalas', 'nav', 'navs', 'nazi', 'nazis', 'neg', 'nug',
+            'acai', 'afros', 'agro', 'ahis', 'airvac', 'aji', 'alvar', 'apo', 'apos', 'areg', 'atigi', 'automat,'
+            'barfi', 'berber', 'bibe', 'bish',
+            'cert', 'chuse', 'cleg', 'crit', 'cru', 'cinq', 'crudo',
+            'dan', 'das', 'deshi', 'desi', 'dobe', 'doh', 'dohs', 'doobs', 'dum',
+            'eco', 'ecos', 'eds', 'eew', 'emerg', 'emo', 'ensuite', 'est', 'exed',
+            'factum', 'fah', 'fes',
+            'gomer', 'gos',
+            'hims', 'hiya',
+            'jook', 'juvies',
+            'kapu', 'kis',
+            'lah', 'lahs', 'larn', 'loto' 'lotter', 'luxer',
+            'merc', 'merch', 'moi', 'mux',
+            'naes', 'nala', 'nalas', 'nano', 'nanos', 'nav', 'navs', 'nazi', 'nazis', 'neg', 'niner', 'niners', 'novate',
+                'novated', 'novates', 'nug',
             'oik', 'oiks', 'oof', 'oma', 'opa', 'org', 'owt'
-            'po', 'pos', 'posier',
-            'reno', 'rez',
-            'san', 'sev', 'sevs', 'sig', 'soba', 'stoved',
-            'tec', 'tiz', 'tolt', 'tum', 'tums', 'turr', 'turrs',
+            'pa', 'perc', 'pisher', 'po', 'pos', 'posier',
+            'reno', 'rez', 'rosti',
+            'samier', 'san', 'sev', 'sevs', 'sig', 'smush', 'soba', 'soc', 'stoved',
+            'tec', 'techs', 'tegu', 'thali', 'tiz', 'tolt', 'tum', 'tums', 'turr', 'turrs',
             'uni',
-            'vega', 'vetter', 'vin', 'vins',
+            'vega', 'vetter', 'vin', 'vins', 'vuln',
             'weta',
-            'zeda',
+            'zeda', 'zendo', 'zendos',
         ]
     ] + [
         'di', 'dux',
+        'turd',
         'von',
+        'zen',
     ]
 
 
@@ -92,7 +94,12 @@ def filter_words(words, opts, filters, form):
             if filter_spec.startswith('`'):
                 filter_parts = filter_spec.split('`')[1:]
             elif macro:
-                filter_parts = [macro.replace('$', '['+ filter_spec + ']')]
+                fs = '['+ filter_spec + ']'
+                filter_parts = [
+                    macro.replace('$', fs).replace(';', fs + '*').replace(
+                        "'", fs + '+')
+                ]
+            print(filter_parts)
             if filter_spec.startswith('`') or macro:
                 apply_filter = lambda word: [
                     0 for part in filter_parts if re.match(part + '$', word)
